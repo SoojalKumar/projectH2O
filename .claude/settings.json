@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c ' *)",
+      "Bash(/Users/suksham/Documents/GitHub/projectH2O/backend/.venv/bin/python --version)",
+      "Bash(curl -s http://127.0.0.1:8000/health)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://127.0.0.1:8080)",
+      "Bash(lsof -nP -iTCP:8080 -sTCP:LISTEN)",
+      "Bash(flutter create *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://127.0.0.1:8090)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://127.0.0.1:8090)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" \"http://localhost:8090\")",
+      "Bash(curl -s \"http://localhost:8090/\")",
+      "Bash(curl -s -o /dev/null -w \"Flutter :8090 -> HTTP %{http_code}\\\\n\" http://localhost:8090)",
+      "Bash(curl -s -o /dev/null -w \"Backend :8000 -> HTTP %{http_code}\\\\n\" http://localhost:8000/health)",
+      "Bash(curl -s https://scoringapi.h2ohackathon.org/Challenge/json)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(f'rows: {len\\(d\\)}'\\); print\\(f'first: {d[0]}'\\); print\\(f'last: {d[-1]}'\\)\")",
+      "Bash(curl -s https://scoringapi.h2ohackathon.org/Challenge/json -o /Users/suksham/Documents/GitHub/projectH2O/backend/app/data/california_supply.json)",
+      "Bash(pkill -f \"uvicorn app.main:app\")",
+      "Bash(pkill -f \"flutter.*web-port=8090\")",
+      "Bash(lsof -nP -iTCP:8000 -sTCP:LISTEN)",
+      "Bash(curl -s http://127.0.0.1:8000/supply/dashboard)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8090)"
+    ]
+  }
+}
