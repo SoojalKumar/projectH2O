@@ -166,8 +166,8 @@ existing backend app and mounts it at both `/` and `/api`, so Vercel can serve:
 - API docs: `https://<your-vercel-domain>/api/docs`
 - Dashboard data: `https://<your-vercel-domain>/api/supply/dashboard`
 
-Vercel installs Python dependencies from the root `requirements.txt`, which
-delegates to `backend/requirements.txt`.
+Vercel installs Python dependencies from the root `requirements.txt`. Keep it
+in sync with `backend/requirements.txt` when backend packages change.
 
 Deploy from GitHub:
 
