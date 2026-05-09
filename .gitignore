@@ -23,3 +23,7 @@ frontend/pubspec.lock
 .DS_Store
 .vscode/
 .idea/
+
+# Extracted nested presentation repo from the original zip.
+# The publishable deck lives at presentation/Hydra.pptx.
+Hydra/

@@ -47,7 +47,7 @@ def test_low_snow_normal_precip_triggers_signature_alert(monkeypatch):
 def test_healthy_reservoirs_low_snow_triggers_future_risk_alert(monkeypatch):
     _set_dataset(monkeypatch, _stable_history(65, 95, 88))
     alerts = alert_service.detect_alerts()
-    assert any(a.alert_id == "reservoirs_ok_snow_low" for a in alerts)
+    assert any(a.alert_id == "future_weak_signal" for a in alerts)
 
 
 def test_recent_wet_but_low_snow_triggers_alert(monkeypatch):
@@ -60,7 +60,7 @@ def test_recent_wet_but_low_snow_triggers_alert(monkeypatch):
 def test_drought_precip_triggers_drought_alert(monkeypatch):
     _set_dataset(monkeypatch, _stable_history(60, 60, 60))
     alerts = alert_service.detect_alerts()
-    assert any(a.alert_id == "drought_precip" for a in alerts)
+    assert any(a.alert_id == "drought_stress" for a in alerts)
 
 
 def test_mixed_signals_fallback_when_no_specific_pattern(monkeypatch):

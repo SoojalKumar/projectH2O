@@ -118,9 +118,21 @@ class _SharePaneState extends ConsumerState<SharePane> {
                     borderRadius: BorderRadius.circular(AppRadius.card),
                     child: AspectRatio(
                       aspectRatio: 1080 / 1350,
-                      child: RepaintBoundary(
-                        key: _captureKey,
-                        child: _Composition(d: widget.dashboard),
+                      child: FittedBox(
+                        fit: BoxFit.contain,
+                        // The composition lays out at its natural design
+                        // size (1080×1350). FittedBox scales the preview
+                        // down to whatever space the modal gives it; the
+                        // RepaintBoundary still captures at full size, so
+                        // the PNG export is sharp regardless of preview width.
+                        child: SizedBox(
+                          width: 1080,
+                          height: 1350,
+                          child: RepaintBoundary(
+                            key: _captureKey,
+                            child: _Composition(d: widget.dashboard),
+                          ),
+                        ),
                       ),
                     ),
                   ),

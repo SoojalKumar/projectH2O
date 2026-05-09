@@ -94,11 +94,6 @@ class DashboardScreen extends ConsumerWidget {
                   title: 'Outlook report',
                   subtitle: 'Improved · worsened · still risky',
                   onTap: () => goTab(1),
-                ),
-                _LinkRow(
-                  title: 'About Hydra',
-                  subtitle: 'Data sources & thresholds',
-                  onTap: () => push(const SettingsScreen()),
                   isLast: true,
                 ),
               ],
@@ -123,32 +118,34 @@ class _Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dateLabel = DateFormat.yMMMM().format(asOf).toUpperCase();
+    final dateLabel = DateFormat.yMMMM().format(asOf);
     return Padding(
       padding: const EdgeInsets.only(top: 4),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'HYDRA',
+                  'Hydra',
                   style: TextStyle(
-                    fontSize: 11,
+                    fontSize: 32,
                     fontWeight: FontWeight.w700,
-                    letterSpacing: 1.8,
-                    color: AppColors.textTertiary,
+                    letterSpacing: -1.2,
+                    height: 1.0,
+                    color: AppColors.textPrimary,
                   ),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 6),
                 Text(
                   dateLabel,
                   style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: -0.1,
-                    color: AppColors.textPrimary,
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 0.1,
+                    color: AppColors.textTertiary,
                   ),
                 ),
               ],

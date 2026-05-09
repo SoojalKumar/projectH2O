@@ -1,4 +1,4 @@
-# SierraSignal
+# Hydra
 
 **California water-supply intelligence — three signals, one clear outlook.**
 
@@ -52,7 +52,7 @@ A good answer needs to do four things:
 
 ---
 
-## 4. Solution — SierraSignal
+## 4. Solution — Hydra
 
 A polished, demo-ready Flutter + FastAPI app that classifies the three signals against the brief's exact thresholds, combines them into a single forward-looking outlook, projects the next 6 months with a model fitted on the full 10-year dataset, and translates everything into audience-specific planning guidance.
 
@@ -206,6 +206,6 @@ Every AI surface has a deterministic fallback that weaves the actual numbers int
 
 ## 10. Closing
 
-SierraSignal turns the brief's dataset into something a curious citizen, a planting-decision farmer, or a supply manager can act on. It doesn't predict the weather. It reads the three signals together — the way the brief asks — and translates that reading into language, alerts, and guidance that match how real people make decisions about water.
+Hydra turns the brief's dataset into something a curious citizen, a planting-decision farmer, or a supply manager can act on. It doesn't predict the weather. It reads the three signals together — the way the brief asks — and translates that reading into language, alerts, and guidance that match how real people make decisions about water.
 
 The pitch is simple: *if snowpack alone isn't enough, here's what is.*
