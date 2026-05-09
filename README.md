@@ -136,13 +136,17 @@ projectH2O/
 
 ### Backend
 
+The backend FastAPI app lives in `backend/app/main.py`. For local development,
+`backend/main.py` re-exports the same app so the standard `uvicorn main:app`
+command works from inside the backend folder.
+
 ```bash
 cd backend
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env
-uvicorn app.main:app --reload --port 8000
+uvicorn main:app --reload --host 127.0.0.1 --port 8000
 ```
 
 `GROQ_API_KEY` is optional. Leave it as a placeholder or empty for fallback explanations. Do not commit real keys.
@@ -152,6 +156,46 @@ Useful endpoints:
 - Health: `http://localhost:8000/health`
 - API docs: `http://localhost:8000/docs`
 - Supply dashboard data: `http://localhost:8000/supply/dashboard`
+
+### Vercel API Deployment
+
+This repo includes a thin Vercel adapter at `api/index.py`. It imports the
+existing backend app and mounts it at both `/` and `/api`, so Vercel can serve:
+
+- API health: `https://<your-vercel-domain>/api/health`
+- API docs: `https://<your-vercel-domain>/api/docs`
+- Dashboard data: `https://<your-vercel-domain>/api/supply/dashboard`
+
+Vercel installs Python dependencies from the root `requirements.txt`, which
+delegates to `backend/requirements.txt`.
+
+Deploy from GitHub:
+
+1. Import `https://github.com/SoojalKumar/projectH2O` into Vercel.
+2. Use the repository root as the project root.
+3. Leave the build command empty for the FastAPI API deployment.
+4. Add environment variables in Vercel Project Settings:
+
+| Name | Required? | Value |
+| --- | --- | --- |
+| `GROQ_API_KEY` | No | Optional Groq key for live AI explanations. Leave unset for deterministic fallbacks. |
+| `LLM_MODEL` | No | Defaults to `llama-3.3-70b-versatile`. |
+| `APP_HOST` | No | Local-only; not needed on Vercel. |
+| `APP_PORT` | No | Local-only; not needed on Vercel. |
+
+Deploy with the CLI:
+
+```bash
+vercel
+vercel --prod
+```
+
+Local Vercel-style API check:
+
+```bash
+uvicorn api.index:app --host 127.0.0.1 --port 8020
+open http://127.0.0.1:8020/api/docs
+```
 
 ### Frontend
 
@@ -165,6 +209,13 @@ For Android emulator:
 
 ```bash
 flutter run --dart-define=HYDROSENSE_API_BASE_URL=http://10.0.2.2:8000
+```
+
+For a deployed Vercel API, point the Flutter app at the `/api` base:
+
+```bash
+flutter run -d chrome \
+  --dart-define=HYDROSENSE_API_BASE_URL=https://<your-vercel-domain>/api
 ```
 
 ## Demo Flow
