@@ -1,61 +1,111 @@
+<div align="center">
+
 # Hydra
 
-**California water-supply intelligence — three signals, one clear outlook.**
+### California water-supply intelligence — three signals, one clear outlook.
 
-Hydra is a Flutter + FastAPI hackathon project built for the H2O Hackathon's water-supply challenge. It reads California snowpack, precipitation, and reservoir storage together, classifies each signal against threshold bands, and turns the combined outlook into clear planning guidance for citizens, farmers, and supply managers.
-
-> Snowpack alone is no longer enough. Hydra explains the whole water story at a glance.
+Hydra is a Flutter + FastAPI hackathon app that reads California **snowpack**, **precipitation**, and **reservoir storage** together, then translates the combined signal into planning guidance, alerts, trends, and AI-assisted explanations.
 
 ![Flutter](https://img.shields.io/badge/Frontend-Flutter-02569B?logo=flutter&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?logo=fastapi&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)
+![Riverpod](https://img.shields.io/badge/State-Riverpod-42A5F5)
 ![AI](https://img.shields.io/badge/AI-Explanation%20Only-7C3AED)
 ![Tests](https://img.shields.io/badge/Backend%20tests-23%20passing-brightgreen)
 
-## Why It Exists
+<br />
 
-The 2026 H2O Hackathon asked students to build tools that help communities understand California's water supply. The event, hosted at the San Joaquin County Office of Education on May 2, 2026, challenged teams to use technology, creativity, and problem-solving to make water data more understandable and actionable.
+<img src="assets/screenshots/dashboard.png" alt="Hydra dashboard showing a Watch outlook and three water metrics" width="310" />
 
-Hydra focuses on one core idea: California's water outlook cannot be understood from one metric. A healthy reservoir level can hide weak future snowpack. Normal precipitation can arrive as rain instead of stored mountain snow. Full reservoirs can become an overflow risk when major storms arrive.
+**Snowpack alone is no longer enough. Hydra shows the whole water story.**
 
-## What Hydra Does
+</div>
 
-| Product surface | What it answers |
+## Screenshots
+
+Real screenshots captured from the running Flutter web app against the local FastAPI backend.
+
+| Home / onboarding | Dashboard | Multi-signal alerts |
+| --- | --- | --- |
+| <img src="assets/screenshots/home.png" alt="Hydra onboarding screen explaining why snowpack alone is no longer enough" width="260" /> | <img src="assets/screenshots/dashboard.png" alt="Hydra dashboard with Watch outlook, precipitation notice, and planning card" width="260" /> | <img src="assets/screenshots/alerts.png" alt="Hydra alerts screen listing allocation uncertainty and snowpack risk" width="260" /> |
+
+| Trends visualization | Ask Hydra |
 | --- | --- |
-| **Outlook** | Is California's water supply strong, stable, watch-level, or concerning? |
-| **Alerts** | What multi-signal patterns should people notice now? |
-| **Trends** | How have snowpack, precipitation, and reservoirs moved across the dataset? |
-| **History** | Which years were strong, mixed, or weak in context? |
-| **Report** | What improved, what worsened, and what still needs attention? |
-| **Planning** | What does this mean for citizens, farmers, and supply managers? |
+| <img src="assets/screenshots/trends.png" alt="Hydra trends screen with snowpack, precipitation, and reservoir chart" width="260" /> | <img src="assets/screenshots/insights.png" alt="Ask Hydra chat panel with water-supply prompt suggestions" width="260" /> |
 
-## Demo Flow
+## Built For H2O Hackathon
 
-1. Open the dashboard and read the combined outlook.
-2. Compare the three metric tiles: snowpack, precipitation, and reservoir storage.
-3. Review active alerts for mixed-signal water risk.
-4. Open trends to see the decade-level context.
-5. Use the report screen for a plain-language summary.
-6. Ask Hydra questions through the chat panel.
+Hydra was built for the H2O Hackathon's water-supply challenge: help communities understand California water conditions through technology, data, and clear communication.
+
+The project centers on the challenge's key insight: modern water supply cannot be forecast from one number. Snowpack, precipitation, and reservoir storage can disagree, and the disagreement is often the point. Hydra turns those mixed signals into an outlook a citizen, farmer, or supply manager can act on.
+
+Sources:
+
+- [SJCOE registration announcement](https://www.sjcoe.org/post-detail/~board/newsroom/post/registration-open-for-2026-h2o-hackathon-coding-and-multimedia-competition)
+- [SJCOE winners announcement](https://www.sjcoe.org/post-detail/~board/newsroom/post/winners-of-ho-hackathon-announced)
+
+## Problem
+
+California's water story used to be easier to summarize: watch the Sierra Nevada snowpack, then infer the coming water year. That single-signal story is breaking down.
+
+- Warmer storms can drop rain instead of snow.
+- Atmospheric rivers can swing the state from drought pressure to flood pressure quickly.
+- Reservoirs can look healthy today while weak snowpack raises next-season risk.
+- Public users need consequences, not raw percentages.
+
+## Solution
+
+Hydra combines three official-style water signals into one auditable product experience:
+
+- **Combined outlook:** Strong, Stable, Watch, or Concern.
+- **Metric cards:** snowpack, precipitation, and reservoir readings with severity labels.
+- **Precipitation notice:** upcoming water events surfaced at the top of the dashboard.
+- **Planning card:** citizen, farmer, and supply-manager implications.
+- **Multi-signal alerts:** patterns that are invisible when reading one metric alone.
+- **Trends view:** decade-level charting across all three signals.
+- **Ask Hydra:** AI-assisted explanation grounded in the project dataset.
+
+The AI layer explains. It does not classify, score, or decide.
+
+## Feature Highlights
+
+| Feature | Why it matters |
+| --- | --- |
+| **Watch outlook** | The app can show that reservoirs are buying time while weak snowpack raises future risk. |
+| **Active patterns** | Alerts identify allocation uncertainty, low snow despite normal precipitation, and reservoir drawdown. |
+| **Trend chart** | The chart lets users compare snowpack, precipitation, and reservoirs in one visual field. |
+| **Audience planning** | The same water data becomes different advice for citizens, farmers, and supply managers. |
+| **Offline AI fallback** | The demo remains coherent even without an API key. |
+
+## Tech Stack
+
+| Layer | Tools |
+| --- | --- |
+| Frontend | Flutter, Riverpod, dio, fl_chart, Material UI |
+| Backend | Python, FastAPI, Pydantic, pytest |
+| AI explanations | Groq API optional, deterministic fallback required |
+| Data | Bundled California supply dataset, 2016-2025 |
+| Delivery | GitHub Actions backend test workflow |
 
 ## Architecture
 
 ```mermaid
 flowchart LR
-    data["Bundled California supply dataset<br/>snowpack + precipitation + reservoirs"]
-    api["FastAPI backend<br/>deterministic classification"]
-    ai["LLM explanation layer<br/>Groq optional, fallback included"]
+    data["Bundled California supply dataset<br/>2016-2025 monthly readings"]
+    api["FastAPI backend<br/>deterministic services"]
+    classify["Classification + alerts<br/>snowpack, precip, reservoir"]
+    ai["Optional LLM layer<br/>plain-language explanations only"]
     app["Flutter app<br/>dashboard, alerts, trends, report, chat"]
 
     data --> api
+    api --> classify
+    classify --> api
     api --> app
     api --> ai
     ai --> api
 ```
 
 ## Deterministic vs. AI
-
-Hydra keeps numerical judgment auditable. The LLM explains the data in plain language, but it does not decide classifications, alert severity, projections, or planning guidance.
 
 | Concern | Location | AI? |
 | --- | --- | --- |
@@ -65,22 +115,26 @@ Hydra keeps numerical judgment auditable. The LLM explains the data in plain lan
 | Historical year labels | `backend/app/services/historical_service.py` | No |
 | Projection model | `backend/app/services/projection_service.py` | No |
 | Planning guidance | `backend/app/services/planning_service.py` | No |
-| Plain-language summaries | `backend/app/services/llm_service.py` | Optional |
+| Plain-language summaries and chat | `backend/app/services/llm_service.py` | Optional |
 
-Every AI surface has an offline fallback, so the demo still works without an API key.
+Every AI surface has an offline fallback, so the app still works without a live model key.
 
 ## Repository Layout
 
 ```text
 projectH2O/
-├── backend/        FastAPI API, deterministic services, tests, bundled data
-├── frontend/       Flutter app for web/mobile
-├── presentation/   Hackathon presentation deck
-├── PRESENTATION.md Full project narrative and demo script
-└── README.md       Repo overview
+├── assets/screenshots/  Real app screenshots used in this README
+├── backend/             FastAPI API, deterministic services, tests, bundled data
+├── frontend/            Flutter app for web/mobile
+├── presentation/        Hackathon presentation deck
+├── docs/                Hackathon context and supporting notes
+├── PRESENTATION.md      Pitch, demo script, architecture, roadmap
+└── README.md            Visual project overview
 ```
 
-## Run the Backend
+## Setup
+
+### Backend
 
 ```bash
 cd backend
@@ -91,7 +145,7 @@ cp .env.example .env
 uvicorn app.main:app --reload --port 8000
 ```
 
-Optional: add `GROQ_API_KEY` in `backend/.env` for live AI explanations. Without it, Hydra uses deterministic fallback copy.
+`GROQ_API_KEY` is optional. Leave it as a placeholder or empty for fallback explanations. Do not commit real keys.
 
 Useful endpoints:
 
@@ -99,7 +153,7 @@ Useful endpoints:
 - API docs: `http://localhost:8000/docs`
 - Supply dashboard data: `http://localhost:8000/supply/dashboard`
 
-## Run the Frontend
+### Frontend
 
 ```bash
 cd frontend
@@ -107,11 +161,21 @@ flutter pub get
 flutter run -d chrome --dart-define=HYDROSENSE_API_BASE_URL=http://localhost:8000
 ```
 
-For the Android emulator, use:
+For Android emulator:
 
 ```bash
 flutter run --dart-define=HYDROSENSE_API_BASE_URL=http://10.0.2.2:8000
 ```
+
+## Demo Flow
+
+1. Start on onboarding: "Snowpack alone is no longer enough."
+2. Continue into the dashboard and read the combined **Watch** outlook.
+3. Compare the three metrics: **65% snowpack**, **105% precipitation**, **72% reservoir**.
+4. Open multi-signal alerts to see why normal precipitation does not cancel low snowpack.
+5. Open trends for the decade-level water-supply chart.
+6. Ask Hydra a question from the chat panel.
+7. Move to the report tab for a plain-language synthesis.
 
 ## Tests
 
@@ -121,20 +185,19 @@ source .venv/bin/activate
 pytest tests/ -q
 ```
 
-The backend test suite covers signal band classification, combined outlook logic, historical labeling, and multi-signal alert patterns.
+Current backend suite: **23 passing tests** covering band classification, outlook logic, historical labeling, and alert patterns.
 
-## Hackathon Context
+## Future Improvements
 
-The Ninth Annual H2O Hackathon was a community-supported coding and multimedia competition for high school and college students focused on California water issues. SJCOE reported that about 200 students on 58 teams competed on May 2, 2026, building apps and campaigns to help local communities understand the state's changing water situation.
-
-Sources:
-
-- [SJCOE registration announcement](https://www.sjcoe.org/post-detail/~board/newsroom/post/registration-open-for-2026-h2o-hackathon-coding-and-multimedia-competition)
-- [SJCOE winners announcement](https://www.sjcoe.org/post-detail/~board/newsroom/post/winners-of-ho-hackathon-announced)
+- Connect live California water APIs with caching and provenance labels.
+- Add map-based regional comparisons for watersheds and reservoir systems.
+- Export share cards and judge-friendly PDF summaries.
+- Add calibrated forecast confidence bands as more training data becomes available.
+- Expand multilingual chat with citations to exact dataset rows.
 
 ## Security Note
 
-Do not commit real API keys. Use `backend/.env.example` as the template and keep local secrets in `backend/.env`, which is ignored by git.
+Do not commit `.env`, API keys, local virtualenvs, Flutter build folders, or generated cache files. Use `backend/.env.example` as the safe template.
 
 ## License
 

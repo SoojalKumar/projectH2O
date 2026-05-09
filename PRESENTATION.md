@@ -188,7 +188,43 @@ Every AI surface has a deterministic fallback that weaves the actual numbers int
 
 ---
 
-## 9. What makes this submission different
+## 9. Visual proof
+
+The repository README now includes screenshots captured from the running Flutter app:
+
+- `assets/screenshots/home.png` — onboarding and problem framing.
+- `assets/screenshots/dashboard.png` — live dashboard with Watch outlook, metric tiles, precipitation notice, and planning card.
+- `assets/screenshots/alerts.png` — deterministic multi-signal alerts.
+- `assets/screenshots/trends.png` — snowpack, precipitation, and reservoir trend visualization.
+- `assets/screenshots/insights.png` — Ask Hydra chat/insight surface.
+
+These are not mockups. They were captured from the local app running against the FastAPI backend.
+
+---
+
+## 10. Tech stack
+
+| Layer | Tools |
+|---|---|
+| Frontend | Flutter, Riverpod, dio, fl_chart, Material UI |
+| Backend | Python, FastAPI, Pydantic |
+| Tests | pytest |
+| AI explanation | Groq optional, deterministic fallback required |
+| Data | Bundled California water-supply dataset, 2016-2025 |
+
+---
+
+## 11. Future roadmap
+
+- Connect live California water APIs with cache freshness and provenance labels.
+- Add watershed and reservoir-system map views.
+- Export judge-ready share cards and PDF summaries.
+- Add calibrated forecast confidence bands as more years of data become available.
+- Expand multilingual chat with citations to exact dataset rows.
+
+---
+
+## 12. What makes this submission different
 
 - **Data-truthful.** Every number on screen is either directly from the dataset, computed deterministically from it, or projected by a fitted model with declared method and confidence. The "today" in the app is the dataset's last reading (Dec 1, 2025) — there is no live API, no real-time clock dependency, no contradiction between what's shown and what's real.
 
@@ -204,7 +240,7 @@ Every AI surface has a deterministic fallback that weaves the actual numbers int
 
 ---
 
-## 10. Closing
+## 13. Closing
 
 Hydra turns the brief's dataset into something a curious citizen, a planting-decision farmer, or a supply manager can act on. It doesn't predict the weather. It reads the three signals together — the way the brief asks — and translates that reading into language, alerts, and guidance that match how real people make decisions about water.
 
