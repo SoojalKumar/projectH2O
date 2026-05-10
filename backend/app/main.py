@@ -30,6 +30,10 @@ def create_app() -> FastAPI:
             "llm_enabled": str(bool(settings.groq_api_key)),
         }
 
+    @app.get("/", tags=["meta"])
+    def root() -> dict[str, str]:
+        return {"name": "Hydra API", "status": "ok", "docs": "/api/docs"}
+
     app.include_router(supply.router)
 
     # Train the seasonal-trend projection model once at boot so first request
