@@ -13,8 +13,13 @@ from api.index import app as vercel_app  # noqa: E402
 client = TestClient(vercel_app)
 
 
-def test_vercel_root_route():
+def test_vercel_adapter_does_not_own_root_route():
     res = client.get("/")
+    assert res.status_code == 404
+
+
+def test_vercel_api_root_route():
+    res = client.get("/api/")
     assert res.status_code == 200
     assert res.json()["name"] == "Hydra API"
 

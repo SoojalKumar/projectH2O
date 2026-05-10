@@ -1,4 +1,7 @@
 {
+  "installCommand": "python3 --version",
+  "buildCommand": "bash scripts/vercel-build-flutter.sh",
+  "outputDirectory": "frontend/build/web",
   "rewrites": [
     {
       "source": "/api/(.*)",
@@ -9,8 +12,8 @@
       "destination": "/api/index.py"
     },
     {
-      "source": "/",
-      "destination": "/api/index.py"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }

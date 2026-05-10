@@ -11,7 +11,7 @@ Hydra is a Flutter + FastAPI hackathon app that reads California **snowpack**, *
 ![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)
 ![Riverpod](https://img.shields.io/badge/State-Riverpod-42A5F5)
 ![AI](https://img.shields.io/badge/AI-Explanation%20Only-7C3AED)
-![Tests](https://img.shields.io/badge/Backend%20tests-23%20passing-brightgreen)
+![Tests](https://img.shields.io/badge/Backend%20tests-34%20passing-brightgreen)
 
 <br />
 
@@ -85,7 +85,7 @@ The AI layer explains. It does not classify, score, or decide.
 | Backend | Python, FastAPI, Pydantic, pytest |
 | AI explanations | Groq API optional, deterministic fallback required |
 | Data | Bundled California supply dataset, 2016-2025 |
-| Delivery | GitHub Actions backend test workflow |
+| Delivery | Vercel Flutter web + FastAPI serverless API, GitHub Actions backend tests |
 
 ## Architecture
 
@@ -157,14 +157,21 @@ Useful endpoints:
 - API docs: `http://localhost:8000/docs`
 - Supply dashboard data: `http://localhost:8000/supply/dashboard`
 
-### Vercel API Deployment
+### Vercel Deployment
 
-This repo includes a thin Vercel adapter at `api/index.py`. It imports the
-existing backend app and mounts it at both `/` and `/api`, so Vercel can serve:
+This repo deploys the Flutter web app at the public root and keeps FastAPI under
+`/api`. Vercel runs `scripts/vercel-build-flutter.sh`, which installs Flutter,
+builds `frontend/build/web`, and compiles the web app with
+`HYDROSENSE_API_BASE_URL=/api`.
 
+- Website: `https://<your-vercel-domain>/`
 - API health: `https://<your-vercel-domain>/api/health`
 - API docs: `https://<your-vercel-domain>/api/docs`
 - Dashboard data: `https://<your-vercel-domain>/api/supply/dashboard`
+- Chatbot: `https://<your-vercel-domain>/api/supply/chat`
+
+The thin Vercel adapter at `api/index.py` imports the existing backend app and
+mounts it under `/api`. Backend logic still lives in `backend/app`.
 
 Vercel installs Python dependencies from the root `requirements.txt`. Keep it
 in sync with `backend/requirements.txt` when backend packages change.
@@ -173,7 +180,7 @@ Deploy from GitHub:
 
 1. Import `https://github.com/SoojalKumar/projectH2O` into Vercel.
 2. Use the repository root as the project root.
-3. Leave the build command empty for the FastAPI API deployment.
+3. Let `vercel.json` provide the build command and output directory.
 4. Add environment variables in Vercel Project Settings:
 
 | Name | Required? | Value |
@@ -214,8 +221,14 @@ flutter run --dart-define=HYDROSENSE_API_BASE_URL=http://10.0.2.2:8000
 For a deployed Vercel API, point the Flutter app at the `/api` base:
 
 ```bash
-flutter run -d chrome \
-  --dart-define=HYDROSENSE_API_BASE_URL=https://<your-vercel-domain>/api
+flutter run -d chrome --dart-define=HYDROSENSE_API_BASE_URL=/api
+```
+
+Production web build:
+
+```bash
+cd frontend
+flutter build web --release --base-href / --dart-define=HYDROSENSE_API_BASE_URL=/api
 ```
 
 ## Demo Flow
@@ -236,7 +249,7 @@ source .venv/bin/activate
 pytest tests/ -q
 ```
 
-Current backend suite: **23 passing tests** covering band classification, outlook logic, historical labeling, and alert patterns.
+Current backend suite: **34 passing tests** covering band classification, outlook logic, API routes, Vercel routing, historical labeling, and alert patterns.
 
 ## Future Improvements
 

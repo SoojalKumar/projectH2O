@@ -1,9 +1,8 @@
 """Vercel FastAPI entrypoint.
 
 This adapter imports the existing backend app instead of duplicating API logic.
-It mounts the same FastAPI application at both `/` and `/api` so Vercel rewrites
-can serve `/api/docs`, `/api/health`, and `/api/supply/*` cleanly while local
-backend development can keep using unprefixed routes such as `/docs`.
+The public website is the Flutter static build at `/`; API traffic is mounted
+only under `/api` for Vercel rewrites such as `/api/health` and `/api/docs`.
 """
 
 from pathlib import Path
@@ -28,4 +27,3 @@ app = FastAPI(
 )
 
 app.mount("/api", backend_app)
-app.mount("/", backend_app)
