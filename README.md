@@ -39,6 +39,10 @@ Hydra was built for the H2O Hackathon's water-supply challenge: help communities
 
 The project centers on the challenge's key insight: modern water supply cannot be forecast from one number. Snowpack, precipitation, and reservoir storage can disagree, and the disagreement is often the point. Hydra turns those mixed signals into an outlook a citizen, farmer, or supply manager can act on.
 
+## Team
+
+- [satchu22](https://github.com/satchu22/) — project contributor
+
 Sources:
 
 - [SJCOE registration announcement](https://www.sjcoe.org/post-detail/~board/newsroom/post/registration-open-for-2026-h2o-hackathon-coding-and-multimedia-competition)
